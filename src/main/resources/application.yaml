@@ -1,0 +1,31 @@
+server:
+  port: 9977
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.godmk.tool.easyreport.dao
+
+# db config
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+#spring.datasource.url=jdbc:mysql://mysqldb:3306/myblog?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    url: jdbc:mysql://192.168.31.98:3306/myblog?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    username: root
+    password: mysql123
+    initialSize: 20
+    minIdle: 10
+    maxActive: 100
+
+  profiles:
+    active: jdbc
+
+# thymeleaf
+spring.thymeleaf.prefix: classpath:/templates/
+spring.thymeleaf.check-template-location: true
+spring.thymeleaf.suffix: .html
+spring.thymeleaf.encoding: UTF-8
+spring.thymeleaf.content-type: text/html
+spring.thymeleaf.mode: HTML5
+spring.thymeleaf.cache: false

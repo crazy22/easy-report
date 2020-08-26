@@ -1,0 +1,1 @@
+org.springframework.boot.env.EnvironmentPostProcessor=com.godmk.tool.easyreport.processor.EasyYamlEnvironmentPostProcessor

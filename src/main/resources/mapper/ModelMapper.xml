@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.godmk.tool.easyreport.dao.MenuDao">
+    <!-- 查询菜单信息 -->
+    <select id="getMenu" parameterType="map" resultType="map">
+        select * from easy_report_menu as menu
+        where menu.`group` = #{group}
+            <if test="state == 0 or state == 1">
+              and menu.state = #{state}
+            </if>
+        order by menu.level , menu.`order`
+    </select>
+
+</mapper>

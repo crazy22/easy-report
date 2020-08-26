@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.godmk.tool.easyreport.dao.ExcelDao">
+    <!-- 查询表报 -->
+    <!-- 查询表报主表 -->
+    <select id="getExcelModel" parameterType="map" resultType="map">
+        select * from easy_report_excel as excel where excel.excel_id = #{excel_id}
+    </select>
+
+    <!-- 获取表报的sheet信息 -->
+    <select id="getExcelSheet" parameterType="map" resultType="map">
+        select * from easy_report_sheet as excel where excel.excel_id = #{excel_id} order by excel.sheet_id
+    </select>
+
+    <!-- 获取表报的head信息 -->
+    <select id="getExcelHead" parameterType="map" resultType="map">
+        select * from easy_report_head as excel where excel.excel_id = #{excel_id} order by excel.sheet_num ,excel.row
+    </select>
+
+    <!-- 获取表报的body信息 -->
+    <select id="getExcelBody" parameterType="map" resultType="map">
+        select * from easy_report_body as excel where excel.excel_id = #{excel_id} order by excel.sheet_num
+    </select>
+
+    <!-- 获取表报的合并行列信息 -->
+    <select id="getExcelMerge" parameterType="map" resultType="map">
+        select * from easy_report_merge as excel where excel.excel_id = #{excel_id} order by excel.sheet_num
+    </select>
+
+    <!-- 获取表报数据 -->
+    <select id="getData" parameterType="map" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 新增模板 -->
+    <!-- 新增报表模板 -->
+    <insert id="insertExcel" parameterType="map" keyProperty="excel_id" useGeneratedKeys="true" >
+        insert into easy_report_excel
+        (excel_name, select_sql, create_time, update_time, `update`) value (
+              #{excel_name},
+              #{select_sql},
+              #{create_time},
+              #{update_time},
+              #{update}
+        )
+    </insert>
+
+    <!-- 添加sheet信息-->
+    <insert id="insertSheet" parameterType="map">
+        insert into easy_report_sheet(
+            excel_id,sheet_num,sheet_name,head_col,head_row,back_color_body,back_color_head,
+            font_bold_body,font_bold_head,font_name_body,font_name_head,font_size_body,font_size_head
+        )values
+            <foreach collection="list" separator="," item="item" index="index">
+                (
+                #{item.excel_id},
+                #{item.sheet_num},
+                #{item.sheet_name},
+                #{item.head_col},
+                #{item.head_row},
+                #{item.back_color_body},
+                #{item.back_color_head},
+                #{item.font_bold_body},
+                #{item.font_bold_head},
+                #{item.font_name_body},
+                #{item.font_name_head},
+                #{item.font_size_body},
+                #{item.font_size_head}
+                )
+            </foreach>
+
+    </insert>
+
+    <!-- 添加标题栏信息-->
+    <insert id="insertHead" parameterType="map">
+       insert into easy_report_head(excel_id, sheet_num, title_name, col, row,color_back,color_word)values
+        <foreach collection="list" separator="," item="item" index="index">
+            (
+            #{item.excel_id},
+            #{item.sheet_num},
+            #{item.title_name},
+            #{item.col},
+            #{item.row},
+            #{item.color_back},
+            #{item.color_word}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 添加正文信息-->
+    <insert id="insertBody" parameterType="map">
+        insert into easy_report_body(
+        excel_id, sheet_num, coordinate_col,
+        coordinate_row, value_key,
+        value_type, `float`, color_back, color_word)values
+        <foreach collection="list" separator="," item="item" index="index">
+            (
+            #{item.excel_id},
+            #{item.sheet_num},
+            #{item.coordinate_col},
+            #{item.coordinate_row},
+            #{item.value_key},
+            #{item.value_type},
+            0,
+            #{item.color_back},
+            #{item.color_word}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 添加单元格合并信息-->
+    <insert id="insertMerge" parameterType="map">
+        insert into easy_report_merge(excel_id,sheet_num,start_col,start_row,end_col,end_row)values
+        <foreach collection="list" separator="," item="item" index="index">
+            (
+            #{item.excel_id},
+            #{item.sheet_num},
+            #{item.start_col},
+            #{item.start_row},
+            #{item.end_col},
+            #{item.end_row}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 修改模板 -->
+    <!-- 修改报表模板 -->
+    <update id="modifyExcel" parameterType="map">
+        update easy_report_excel set
+            excel_name = #{excel_name},
+            update_time = #{update_time},
+            `update` = 1 ,
+            select_sql = #{select_sql}
+        where excel_id = #{excel_id}
+    </update>
+
+    <!-- 修改sheet信息-->
+
+
+    <!-- 修改head信息-->
+
+
+    <!-- 修改body信息-->
+
+
+    <!-- 修改行列合并信息-->
+
+
+    <!-- 删除模板 -->
+    <!-- 删除报表模板 -->
+    <delete id="deleteExcel" parameterType="map">
+        delete from easy_report_excel where excel_id = #{excel_id}
+    </delete>
+
+    <!-- 删除sheet信息-->
+    <delete id="deleteSheet" parameterType="map">
+        delete from easy_report_sheet where excel_id = #{excel_id}
+    </delete>
+
+    <!-- 删除head信息-->
+    <delete id="deleteHead" parameterType="map">
+        delete from easy_report_head where excel_id = #{excel_id}
+    </delete>
+
+    <!-- 删除body信息-->
+    <delete id="deleteBody" parameterType="map">
+        delete from easy_report_body where excel_id = #{excel_id}
+    </delete>
+
+    <!-- 删除行列合并信息-->
+    <delete id="deleteMerge" parameterType="map">
+        delete from easy_report_merge where excel_id = #{excel_id}
+    </delete>
+
+
+
+</mapper>
