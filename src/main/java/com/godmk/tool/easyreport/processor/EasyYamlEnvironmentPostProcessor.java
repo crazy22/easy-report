@@ -11,6 +11,8 @@ import org.springframework.core.io.Resource;
 import java.io.IOException;
 
 /**
+ * 加载自定义yaml配置文件
+ *
  * @author crazy22
  */
 public class EasyYamlEnvironmentPostProcessor implements EnvironmentPostProcessor {
