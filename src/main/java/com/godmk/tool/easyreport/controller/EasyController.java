@@ -4,10 +4,7 @@ package com.godmk.tool.easyreport.controller;
 import com.godmk.tool.easyreport.constant.ContextConstant;
 import com.godmk.tool.easyreport.constant.MenuConstant;
 import com.godmk.tool.easyreport.service.IMenuService;
-import com.godmk.tool.easyreport.utils.EasyTools;
-import com.godmk.tool.easyreport.utils.JsonMsg;
-import com.godmk.tool.easyreport.utils.MapUtil;
-import com.godmk.tool.easyreport.utils.ParamHandler;
+import com.godmk.tool.easyreport.utils.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -35,17 +32,18 @@ public class EasyController {
     private static final Logger LOGGER = LoggerFactory.getLogger(EasyController.class);
 
     @Resource
-    EasyTools easyTools;
+    RedisTools redisTools;
 
-    @ApiOperation("删除菜单")
-    @RequestMapping(value = "deleteMenu", method = RequestMethod.DELETE)
+    @ApiOperation("test add")
+    @RequestMapping(value = "add", method = RequestMethod.GET)
     @ResponseBody
-    public String deleteMenu(HttpServletRequest request) {
-  /*      Map body = ParamHandler.bodyParam(request);
-
-
-        String html = "<div>";*/
-        LOGGER.debug("================================================================");
-        return easyTools.getSheetName();
+    public void doAdd(HttpServletRequest request) {
+        redisTools.testAdd();
+    }
+    @ApiOperation("test get")
+    @RequestMapping(value = "get", method = RequestMethod.GET)
+    @ResponseBody
+    public String doGet(HttpServletRequest request) {
+        return redisTools.testGet();
     }
 }
