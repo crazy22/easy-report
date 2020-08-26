@@ -24,6 +24,6 @@
 ### 四、额外功能
 
 - swagger3：http://127.0.0.1:9977/swagger-ui/index.html
-- poi报表颜色信息对比接口: http://47.98.236.153/omg/excelColor
-- poi报表颜色信息excel下载: http://47.98.236.153/omg/excelColorDownload
+- poi报表颜色信息对比接口: http://127.0.0.1:9977/omg/excelColor
+- poi报表颜色信息excel下载: http://127.0.0.1:9977/omg/excelColorDownload
 
