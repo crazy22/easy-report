@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 public class RedisTools {
 
     @Resource
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     public void testAdd() {
         redisTemplate.opsForValue().set("test2", "测试数据2");
@@ -20,7 +20,7 @@ public class RedisTools {
     }
 
     public String testGet() {
-        String test = redisTemplate.opsForValue().get("test");
+        String test = redisTemplate.opsForValue().get("test") + "";
         test = test + "+++ " + redisTemplate.opsForValue().get("test2");
         System.out.println(test);
         return test;
